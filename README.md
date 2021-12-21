@@ -1,2 +1,3 @@
-# zoom3.js
-Created with CodeSandbox
+# Noom
+
+Zoom Clone using NodeJS, WebRTC and Websockets.

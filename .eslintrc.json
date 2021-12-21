@@ -1,0 +1,14 @@
+{
+  "parser": "barbel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "io": true
+  },
+  "globals": {
+    "$": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8 // 이 부분만 추가
+  }
+}
