@@ -4,6 +4,7 @@
   "description": "Zoom Clone using NodeJS, WebRTC and Websockets.",
   "license": "MIT",
   "main": "/src/public/js/app.js",
+  "type": "module",
   "homepage": ".",
   "scripts": {
     "dev": "nodemon",

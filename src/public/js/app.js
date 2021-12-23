@@ -24,7 +24,15 @@ async function getCameras() {
   }
 }
 
-async function getMedia() {
+async function getMedia(deviceId) {
+  const initialConstrains = {
+    audio: true,
+    video: { facingMode: "user" }
+  };
+  const cameraConstraints = {
+    audio: true,
+    video: { deviceId: { exact: myE } }
+  };
   try {
     myStream = await navigator.mediaDevices.getUserMedia({
       audio: true,
@@ -64,5 +72,10 @@ function handleCameraClick() {
   }
 }
 
+async function handleCameraChange() {
+  await getMedia(camerasSelect.value);
+}
+
 muteBtn.addEventListener("click", handleMuteClick);
 cameraBtn.addEventListener("click", handleCameraClick);
+camerasSelect.addEventListener("input", handleCameraChange);
