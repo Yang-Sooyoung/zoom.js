@@ -4,13 +4,12 @@ import SocketIO from "socket.io";
 import express from "express";
 import path from "path";
 
-var fs = require("fs");
-var io = require("socket.io")(3000);
-require("socket.io-stream")(io);
-io.on("connection", function (socket) {
-  io.emit(fs.createReadStream("file.jpg"));
-});
-
+//var fs = require("fs");
+//var SocketIO = require("socket.io")(3010);
+// require("socket.io-stream")(io);
+// io.on("connection", function (socket) {
+//   io.emit(fs.createReadStream("file.jpg"));
+// });
 const app = express();
 //const server = require("http").Server(app);
 const __dirname = path.resolve();
@@ -23,6 +22,7 @@ app.get("/*", (_, res) => res.redirect("/"));
 
 const httpServer = http.createServer(app);
 const wsServer = SocketIO(httpServer);
+const io = SocketIO.listen(wsServer);
 
 wsServer.on("connection", (socket) => {
   socket.on("join_room", (roomName, done) => {

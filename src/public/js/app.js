@@ -1,5 +1,5 @@
 //var io = require("socket.io").listen(socket);
-const socket = require("socket.io");
+const socket = io();
 
 const myFace = document.getElementById("myFace");
 const muteBtn = document.getElementById("mute");
