@@ -1,6 +1,6 @@
 import http from "http";
 //import { WebSocketServer } from "ws";
-//import SocketIO from "socket.io";
+import SocketIO from "socket.io";
 import express from "express";
 import path from "path";
 
@@ -22,7 +22,7 @@ app.get("/", (_, res) => res.render("home"));
 app.get("/*", (_, res) => res.redirect("/"));
 
 const httpServer = http.createServer(app);
-const wsServer = io(httpServer);
+const wsServer = SocketIO(httpServer);
 
 wsServer.on("connection", (socket) => {
   socket.on("join_room", (roomName, done) => {
