@@ -1,4 +1,7 @@
 {
   "ignore": ["src/public/*"],
-  "exec": "babel-node src/server.js"
+  "exec": "babel-node src/server.js",
+  "events": {
+    "crash": "sh -c 'lsof -i :${PORT:-3000} -t | xargs kill'"
+  }
 }

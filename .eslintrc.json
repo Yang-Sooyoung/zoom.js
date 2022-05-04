@@ -1,4 +1,9 @@
 {
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "parser": "barbel-eslint",
   "env": {
     "browser": true,
@@ -9,6 +14,6 @@
     "$": true
   },
   "parserOptions": {
-    "ecmaVersion": 8 // 이 부분만 추가
+    "ecmaVersion": 8
   }
 }
