@@ -1,9 +1,4 @@
 {
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
   "parser": "barbel-eslint",
   "env": {
     "browser": true,

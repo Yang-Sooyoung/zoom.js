@@ -2,7 +2,7 @@ import http from "http";
 //import { WebSocketServer } from "ws";
 import SocketIO from "socket.io";
 import express from "express";
-//import path from "path";
+import path from "path";
 
 //var fs = require("fs");
 //var SocketIO = require("socket.io")(3010);
@@ -12,7 +12,7 @@ import express from "express";
 // });
 const app = express();
 //const server = require("http").Server(app);
-//const __dirname = path.resolve();
+const __dirname = path.resolve();
 
 app.set("view engine", "pug");
 app.set("views", __dirname + "/src/views");
@@ -27,10 +27,15 @@ const wsServer = SocketIO(httpServer);
 wsServer.on("connection", (socket) => {
   socket.on("join_room", (roomName, done) => {
     socket.join(roomName);
-    done();
     socket.to(roomName).emit("welcome");
+  });
+  socket.on("offer", (offer, roomName) => {
+    socket.to(roomName).emit("offer", offer);
+  });
+  socket.on("answer", (answer, roomName) => {
+    socket.to(roomName).emit("answer", answer);
   });
 });
 
 const handleListen = () => console.log(`Listening on "https://localhost:3000"`);
-wsServer.listen(3000, handleListen);
+httpServer.listen(3000, handleListen);
