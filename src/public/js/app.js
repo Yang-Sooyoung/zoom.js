@@ -1,8 +1,11 @@
 //var io = require("socket.io").listen(socket);
 //const socket = io(); //eslint-disable-line
-const socket = io.connect("https://yd6d1s.sse.codesandbox.io/", {
-  transports: ["websocket"]
-}); // default is ['polling', 'websocket']
+
+// const socket = io.connect("https://yd6d1s.sse.codesandbox.io/", {
+//   transports: ["websocket"]
+// }); // default is ['polling', 'websocket']
+
+const socket = io();
 
 const myFace = document.getElementById("myFace");
 const muteBtn = document.getElementById("mute");
@@ -140,17 +143,33 @@ socket.on("answer", (answer) => {
   console.log("received the answer");
   myPeerConnection.setRemoteDescription(answer);
 });
+
+socket.on("ice", (ice) => {
+  console.log("received candidate");
+  myPeerConnection.addIceCandidate(ice);
+});
+
 // RTC Code
 
 function makeConnection() {
   myPeerConnection = new RTCPeerConnection();
   myPeerConnection.addEventListener("icecandidate", handleIce);
+  myPeerConnection.addEventListener("addstream", handleAddStream);
   myStream
     .getTracks()
     .forEach((track) => myPeerConnection.addTrack(track, myStream));
 }
 
-function handleIce(date) {
-  console.log("got ice candidate");
-  console.log(date);
+function handleIce(data) {
+  console.log("sent candidate");
+  //console.log(data);
+  socket.emit("ice", data.candidate, roomName);
+}
+
+function handleAddStream(data) {
+  console.log("got an stream from my peer");
+  console.log("Peer's Stream", data.stream);
+  console.log("My stream", myStream);
+  const peerFace = document.getElementById("peerFace");
+  peerFace.srcObject = data.stream;
 }
